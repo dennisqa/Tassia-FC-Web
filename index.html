@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tassia FC - Official Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: #0047AB;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Image Slider Hero */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,71,171,0.6), rgba(0,71,171,0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 11;
+        }
+
+        .hero-content h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .slider-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .slider-dot.active {
+            background: white;
+            width: 40px;
+            border-radius: 7px;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,71,171,0.8);
+            color: white;
+            padding: 20px 25px;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s;
+            border: none;
+            font-size: 28px;
+            border-radius: 5px;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(0,71,171,1);
+        }
+
+        .slider-arrow.prev {
+            left: 20px;
+        }
+
+        .slider-arrow.next {
+            right: 20px;
+        }
+        
+        .section {
+            padding: 60px 20px;
+        }
+
+        .section-alt {
+            background: white;
+        }
+        
+        .section h2 {
+            color: #0047AB;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #0047AB;
+            border-radius: 2px;
+        }
+        
+        .fixtures-grid, .results-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .match-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #0047AB;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .competition-badge {
+            background: #0047AB;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            gap: 20px;
+        }
+        
+        .team-name {
+            flex: 1;
+        }
+
+        .team-home {
+            text-align: left;
+        }
+
+        .team-away {
+            text-align: right;
+        }
+        
+        .vs {
+            color: #0047AB;
+            font-weight: 600;
+            padding: 0 15px;
+        }
+        
+        .score {
+            color: #0047AB;
+            font-size: 1.8em;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+        
+        .match-venue {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            color: #0047AB;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .info-item {
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Support/Donation Section */
+        .support-section {
+            background: linear-gradient(135deg, #0047AB, #0056D2);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .support-section h2 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .support-section h2::after {
+            background: white;
+        }
+
+        .support-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-amount {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .support-text {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .support-button {
+            display: inline-block;
+            background: white;
+            color: #0047AB;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .support-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        footer {
+            background: #0047AB;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .hero-slider {
+                height: 400px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-content p {
+                font-size: 1.1em;
+            }
+
+            .slider-arrow {
+                padding: 15px 20px;
+                font-size: 20px;
+            }
+
+            .section h2 {
+                font-size: 2em;
+            }
+
+            .match-teams {
+                flex-direction: column;
+                text-align: center;
+                font-size: 1.1em;
+            }
+
+            .team-home,
+            .team-away {
+                text-align: center;
+            }
+
+            .vs {
+                margin: 10px 0;
+            }
+
+            .score {
+                margin: 15px 0;
+            }
+
+            .support-amount {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">⚽ TASSIA FC</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#fixtures">Fixtures</a></li>
+                        <li><a href="#results">Results</a></li>
+                        <li><a href="#support">Support</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-slider" id="home">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200" alt="Football Team">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1200" alt="Match Action">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200" alt="Team Spirit">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=1200" alt="Football Stadium">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200" alt="Team Celebration">
+        </div>
+
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>TASSIA FC</h1>
+                <p id="hero-subtitle">Loading...</p>
+            </div>
+        </div>
+
+        <button class="slider-arrow prev" onclick="changeSlide(-1)">❮</button>
+        <button class="slider-arrow next" onclick="changeSlide(1)">❯</button>
+
+        <div class="slider-controls">
+            <span class="slider-dot active" onclick="currentSlide(0)"></span>
+            <span class="slider-dot" onclick="currentSlide(1)"></span>
+            <span class="slider-dot" onclick="currentSlide(2)"></span>
+            <span class="slider-dot" onclick="currentSlide(3)"></span>
+            <span class="slider-dot" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+
+    <div class="section" id="fixtures">
+        <div class="container">
+            <h2>Upcoming Fixtures</h2>
+            <div class="fixtures-grid" id="fixtures-container">
+                <div class="loading">Loading fixtures...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-alt" id="results">
+        <div class="container">
+            <h2>Recent Results</h2>
+            <div class="results-grid" id="results-container">
+                <div class="loading">Loading results...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="support-section" id="support">
+        <div class="container">
+            <div class="support-content">
+                <h2>💙 Club Support & Donations</h2>
+                <p class="support-text">Help us grow and develop football talent in Tassia</p>
+                <div class="support-amount" id="donation-amount">KSH 0</div>
+                <p class="support-text">Total Support Received</p>
+                <a href="#contact" class="support-button">Support the Club</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="about">
+        <div class="container">
+            <h2>Club Information</h2>
+            <div class="info-grid" id="info-container">
+                <div class="loading">Loading club information...</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <h3 style="margin-bottom: 20px; font-size: 1.8em;">⚽ TASSIA FC</h3>
+            <p id="footer-copyright">Loading...</p>
+            <div class="contact-info" id="footer-contact">
+                <p>Loading contact information...</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Image Slider
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            if (index >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (index < 0) {
+                currentSlideIndex = slides.length - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+            
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlideIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                
+                document.getElementById('hero-subtitle').textContent = 
+                    `Pride of Tassia | Founded ${data.clubInfo.founded}`;
+                
+                // Load donation amount
+                if (data.donationAmount) {
+                    document.getElementById('donation-amount').textContent = 
+                        `KSH ${data.donationAmount.toLocaleString()}`;
+                }
+                
+                loadFixtures(data.upcomingFixtures);
+                loadResults(data.pastResults);
+                loadClubInfo(data.clubInfo);
+                updateFooter(data.clubInfo);
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('fixtures-container').innerHTML = 
+                    '<div class="no-data">Unable to load fixtures. Please check back later.</div>';
+                document.getElementById('results-container').innerHTML = 
+                    '<div class="no-data">Unable to load results. Please check back later.</div>';
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function loadFixtures(fixtures) {
+            const container = document.getElementById('fixtures-container');
+            
+            if (fixtures.length === 0) {
+                container.innerHTML = '<div class="no-data">No upcoming fixtures at the moment. Check back soon!</div>';
+                return;
+            }
+            
+            container.innerHTML = fixtures.map(fixture => `
+                <div class="match-card">
+                    <div class="match-header">
+                        <span>📅 ${formatDate(fixture.date)} - ${fixture.time}</span>
+                        <span class="competition-badge">${fixture.competition}</span>
+                    </div>
+                    <div class="match-teams">
+                        <span class="team-name team-home">${fixture.home_team}</span>
+                        <span class="vs">VS</span>
+                        <span class="team-name team-away">${fixture.away_team}</span>
+                    </div>
+                    <div class="match-venue">
+                        <span>📍</span>
+                        <span>${fixture.venue}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadResults(results) {
+            const container = document.getElementById('results-container');
+            
+            if (results.length === 0) {
+                container.innerHTML = '<div class="no-data">No recent results available.</div>';
+                return;
+            }
+            
+            container.innerHTML = results.map(result => `
+                <div class="match-card">
+                    <div class="match-header">
+                        <span>📅 ${formatDate(result.date)}</span>
+                        <span class="competition-badge">${result.competition}</span>
+                    </div>
+                    <div class="match-teams">
+                        <span class="team-name team-home">${result.home_team}</span>
+                        <span class="score">${result.home_score} - ${result.away_score}</span>
+                        <span class="team-name team-away">${result.away_team}</span>
+                    </div>
+                    <div class="match-venue">
+                        <span>📍</span>
+                        <span>${result.venue}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadClubInfo(clubInfo) {
+            const container = document.getElementById('info-container');
+            
+            container.innerHTML = `
+                <div class="info-card">
+                    <h3>🏟️ General Information</h3>
+                    <div class="info-item">
+                        <span class="info-label">Founded:</span>
+                        <span class="info-value">${clubInfo.founded}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Home Ground:</span>
+                        <span class="info-value">${clubInfo.stadium}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Capacity:</span>
+                        <span class="info-value">${clubInfo.capacity}</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>👥 Management</h3>
+                    <div class="info-item">
+                        <span class="info-label">Manager:</span>
+                        <span class="info-value">${clubInfo.manager}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Captain:</span>
+                        <span class="info-value">${clubInfo.captain}</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📞 Contact Us</h3>
+                    <div class="info-item">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">${clubInfo.contact}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">${clubInfo.email}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateFooter(clubInfo) {
+            const currentYear = new Date().getFullYear();
+            document.getElementById('footer-copyright').textContent = 
+                `© ${currentYear} Tassia FC. All rights reserved.`;
+            document.getElementById('footer-contact').innerHTML = 
+                `<p>📞 ${clubInfo.contact} | ✉️ ${clubInfo.email}</p>`;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
