@@ -1,5 +1,5 @@
 {
-  "donationAmount": 125000,
+  "donationAmount": 000,
   "upcomingFixtures": [
     {
       "date": "2025-11-05",
@@ -56,12 +56,14 @@
     }
   ],
   "clubInfo": {
-    "founded": "2010",
+    "founded": "2009",
     "stadium": "Tassia Stadium",
     "capacity": "5,000",
-    "manager": "John Kamau",
-    "captain": "David Ochieng",
+    "chairman" "Samson Ochieng",
+    "team manager": "George Agisa",
+    "coach": "Joseph Etoo",
     "contact": "+254 712 345 678",
     "email": "info@tassiafc.com"
   }
+
 }
