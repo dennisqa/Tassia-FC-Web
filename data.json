@@ -1,5 +1,5 @@
 {
-  "donationAmount": 000,
+  "donationAmount": 10000,
   "upcomingFixtures": [
     {
       "date": "2025-11-05",
@@ -62,9 +62,11 @@
     "chairman": "Samson Ochieng",
     "teammanager": "George Agisa",
     "teamcoach": "Joseph Etoo",
+    "captain": "Test",
     "contact": "+254 712 345 678",
     "email": "info@tassiafc.com"
   }
 
 }
+
 
