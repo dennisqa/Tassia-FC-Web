@@ -904,16 +904,35 @@
         function loadGallery(gallery) {
             const container = document.getElementById('gallery-container');
             
+            // If no gallery data in JSON, load all images from images folder automatically
             if (!gallery || gallery.length === 0) {
-                container.innerHTML = '<div class="no-data">Gallery coming soon! Check back for photos of our matches and team events.</div>';
-                return;
+                // List all your image files here - just add the filenames!
+                const autoGallery = [
+                    'gallery1.jpg',
+                    'gallery2.jpg',
+                    'gallery3.jpg',
+                    'gallery4.jpg',
+                    'gallery5.jpg',
+                    'gallery6.jpg',
+                    'gallery7.jpg',
+                    'gallery8.jpg',
+                    'gallery9.jpg',
+                    'gallery10.jpg',
+                    // Add more filenames as needed
+                ].map((filename, index) => ({
+                    url: `images/${filename}`,
+                    title: `Tassia FC Photo ${index + 1}`,
+                    description: ''
+                }));
+                
+                gallery = autoGallery;
             }
 
             galleryImages = gallery;
             
             container.innerHTML = gallery.map((item, index) => `
                 <div class="gallery-item" onclick="openLightbox(${index})">
-                    <img src="${item.url}" alt="${item.title}">
+                    <img src="${item.url}" alt="${item.title}" onerror="this.parentElement.style.display='none'">
                     <div class="gallery-overlay">
                         <div class="gallery-title">${item.title}</div>
                         <div class="gallery-description">${item.description || ''}</div>
