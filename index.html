@@ -922,33 +922,38 @@
         }
 
         async function loadData() {
-            try {
-                const response = await fetch('data.json');
-                const data = await response.json();
-                
-                document.getElementById('hero-subtitle').textContent = 
-                    `Pride of Tassia | Founded ${data.clubInfo.founded}`;
-                
-                // Load donation amount
-                if (data.donationAmount) {
-                    document.getElementById('donation-amount').textContent = 
-                        `KSH ${data.donationAmount.toLocaleString()}`;
-                }
-                
-                loadFixtures(data.upcomingFixtures);
-                loadResults(data.pastResults);
-                loadClubInfo(data.clubInfo);
-                loadGallery(data.gallery);
-                updateFooter(data.clubInfo);
-                
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('fixtures-container').innerHTML = 
-                    '<div class="no-data">Unable to load fixtures. Please check back later.</div>';
-                document.getElementById('results-container').innerHTML = 
-                    '<div class="no-data">Unable to load results. Please check back later.</div>';
-            }
+    try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        
+        document.getElementById('hero-subtitle').textContent = 
+            `Pride of Tassia | Founded ${data.clubInfo.founded}`;
+        
+        // Load donation amount
+        if (data.donationAmount) {
+            document.getElementById('donation-amount').textContent = 
+                `KSH ${data.donationAmount.toLocaleString()}`;
         }
+        
+        loadFixtures(data.upcomingFixtures);
+        loadResults(data.pastResults);
+        loadClubInfo(data.clubInfo);
+        
+        // Only load gallery if gallery container exists on the page
+        if (document.getElementById('gallery-container')) {
+            loadGallery(data.gallery);
+        }
+        
+        updateFooter(data.clubInfo);
+        
+    } catch (error) {
+        console.error('Error loading data:', error);
+        document.getElementById('fixtures-container').innerHTML = 
+            '<div class="no-data">Unable to load fixtures. Please check back later.</div>';
+        document.getElementById('results-container').innerHTML = 
+            '<div class="no-data">Unable to load results. Please check back later.</div>';
+    }
+}
 
         function formatDate(dateString) {
             const date = new Date(dateString);
@@ -1077,4 +1082,5 @@
     </script>
 </body>
 </html>
+
 
