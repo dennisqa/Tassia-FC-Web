@@ -1,58 +1,25 @@
 {
   "donationAmount": 10000,
   "upcomingFixtures": [
+    
     {
-      "date": "2025-11-05",
-      "time": "15:00",
-      "home_team": "Tassia FC",
-      "away_team": "Riverside United",
-      "venue": "Tassia Stadium",
-      "competition": "League Match"
-    },
-    {
-      "date": "2025-11-12",
-      "time": "14:00",
-      "home_team": "Eastlands Warriors",
-      "away_team": "Tassia FC",
-      "venue": "Eastlands Ground",
-      "competition": "League Match"
-    },
-    {
-      "date": "2025-11-19",
+      "date": "2025-11-06",
       "time": "16:00",
-      "home_team": "Tassia FC",
-      "away_team": "City Stars",
-      "venue": "Tassia Stadium",
-      "competition": "Cup Quarter Final"
+      "home_team": "Aviation FC",
+      "away_team": "Tassia FC",
+      "venue": "Aviation College",
+      "competition": "Friendly Match"
     }
   ],
   "pastResults": [
     {
-      "date": "2025-10-22",
+      "date": "2025-11-02",
       "home_team": "Tassia FC",
       "home_score": 3,
-      "away_team": "Highridge FC",
-      "away_score": 1,
-      "venue": "Tassia Stadium",
-      "competition": "League Match"
-    },
-    {
-      "date": "2025-10-15",
-      "home_team": "Nairobi United",
-      "home_score": 2,
-      "away_team": "Tassia FC",
+      "away_team": "Donholm FC",
       "away_score": 2,
-      "venue": "Nairobi Stadium",
-      "competition": "League Match"
-    },
-    {
-      "date": "2025-10-08",
-      "home_team": "Tassia FC",
-      "home_score": 4,
-      "away_team": "Donholm Rangers",
-      "away_score": 0,
-      "venue": "Tassia Stadium",
-      "competition": "League Match"
+      "venue": "Nyayo Stadium",
+      "competition": "Friendly Match"
     }
   ],
   "clubInfo": {
@@ -68,5 +35,6 @@
   }
 
 }
+
 
 
