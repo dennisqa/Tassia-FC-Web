@@ -387,6 +387,186 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
+
+        /* Enhanced Support Features */
+        .support-reasons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .support-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .support-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .support-card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .support-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .support-card p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #0047AB;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            height: 300px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,71,171,0.9), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .gallery-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0 15px;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .lightbox-nav.prev {
+            left: 20px;
+        }
+
+        .lightbox-nav.next {
+            right: 20px;
+        }
         
         footer {
             background: #0047AB;
@@ -470,6 +650,15 @@
             .support-amount {
                 font-size: 2.5em;
             }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-nav {
+                padding: 10px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
@@ -483,6 +672,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#fixtures">Fixtures</a></li>
                         <li><a href="#results">Results</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#support">Support</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -494,25 +684,19 @@
 
     <div class="hero-slider" id="home">
         <div class="slide active">
-            <img src="images/slide1.jpg" alt="Tassia FC Team" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200" alt="Football Team">
         </div>
         <div class="slide">
-            <img src="images/slide2.jpg" alt="Match Action" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+            <img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1200" alt="Match Action">
         </div>
         <div class="slide">
-            <img src="images/slide3.jpg" alt="Team Spirit" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200" alt="Team Spirit">
         </div>
         <div class="slide">
-            <img src="images/slide4.jpg" alt="Tassia FC Squad" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+            <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=1200" alt="Football Stadium">
         </div>
         <div class="slide">
-            <img src="images/slide5.jpg" alt="Team Celebration" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
-        </div>
-        <div class="slide">
-            <img src="images/slide6.jpg" alt="Team Celebration" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
-        </div>
-        <div class="slide">
-            <img src="images/slide7.jpg" alt="Team Celebration" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200" alt="Team Celebration">
         </div>
 
         <div class="hero-overlay">
@@ -531,8 +715,6 @@
             <span class="slider-dot" onclick="currentSlide(2)"></span>
             <span class="slider-dot" onclick="currentSlide(3)"></span>
             <span class="slider-dot" onclick="currentSlide(4)"></span>
-            <span class="slider-dot" onclick="currentSlide(5)"></span>
-            <span class="slider-dot" onclick="currentSlide(6)"></span>
         </div>
     </div>
 
@@ -557,12 +739,70 @@
     <div class="support-section" id="support">
         <div class="container">
             <div class="support-content">
-                <h2>💙 Club Support & Donations</h2>
-                <p class="support-text">Help us grow and develop football talent in Tassia</p>
+                <h2>💙 Support Tassia FC - Invest in Our Future</h2>
+                <p class="support-text">Every contribution helps us nurture talent, improve facilities, and build champions</p>
+                
+                <div class="support-reasons">
+                    <div class="support-card">
+                        <div class="support-card-icon">⚽</div>
+                        <h4>Youth Development</h4>
+                        <p>Support training programs for young talents in our community</p>
+                    </div>
+                    <div class="support-card">
+                        <div class="support-card-icon">🏟️</div>
+                        <h4>Facility Upgrade</h4>
+                        <p>Help us improve our training ground and equipment</p>
+                    </div>
+                    <div class="support-card">
+                        <div class="support-card-icon">👕</div>
+                        <h4>Team Kits</h4>
+                        <p>Provide quality jerseys and gear for our players</p>
+                    </div>
+                    <div class="support-card">
+                        <div class="support-card-icon">🏆</div>
+                        <h4>Competition Entry</h4>
+                        <p>Fund tournament fees and travel expenses</p>
+                    </div>
+                </div>
+
                 <div class="support-amount" id="donation-amount">KSH 0</div>
-                <p class="support-text">Total Support Received</p>
-                <a href="#contact" class="support-button">Support the Club</a>
+                <p class="support-text" style="font-size: 1em; margin-bottom: 40px;">Total Support Received This Season</p>
+                
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <span>📱</span>
+                        <span>M-PESA</span>
+                    </div>
+                    <div class="payment-method">
+                        <span>🏦</span>
+                        <span>Bank Transfer</span>
+                    </div>
+                </div>
+
+                <a href="#contact" class="support-button">💚 Donate Now & Make a Difference</a>
+                <p class="support-text" style="font-size: 0.95em; margin-top: 20px; opacity: 0.9;">
+                    All donations go directly to club development. Contact us for payment details.
+                </p>
             </div>
+        </div>
+    </div>
+
+    <div class="gallery-section section" id="gallery">
+        <div class="container">
+            <h2>📸 Photo Gallery</h2>
+            <div class="gallery-grid" id="gallery-container">
+                <div class="loading">Loading gallery...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <button class="lightbox-nav prev" onclick="lightboxNav(-1)">❮</button>
+            <img id="lightbox-img" src="" alt="Gallery Image">
+            <button class="lightbox-nav next" onclick="lightboxNav(1)">❯</button>
         </div>
     </div>
 
@@ -620,6 +860,60 @@
             changeSlide(1);
         }, 5000);
 
+        // Gallery and Lightbox
+        let currentLightboxIndex = 0;
+        let galleryImages = [];
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightbox-img').src = galleryImages[index].url;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function lightboxNav(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex >= galleryImages.length) {
+                currentLightboxIndex = 0;
+            } else if (currentLightboxIndex < 0) {
+                currentLightboxIndex = galleryImages.length - 1;
+            }
+            document.getElementById('lightbox-img').src = galleryImages[currentLightboxIndex].url;
+        }
+
+        // Close lightbox on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+            if (e.key === 'ArrowRight') lightboxNav(1);
+        });
+
+        function loadGallery(gallery) {
+            const container = document.getElementById('gallery-container');
+            
+            if (!gallery || gallery.length === 0) {
+                container.innerHTML = '<div class="no-data">Gallery coming soon! Check back for photos of our matches and team events.</div>';
+                return;
+            }
+
+            galleryImages = gallery;
+            
+            container.innerHTML = gallery.map((item, index) => `
+                <div class="gallery-item" onclick="openLightbox(${index})">
+                    <img src="${item.url}" alt="${item.title}">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">${item.title}</div>
+                        <div class="gallery-description">${item.description || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         async function loadData() {
             try {
                 const response = await fetch('data.json');
@@ -637,6 +931,7 @@
                 loadFixtures(data.upcomingFixtures);
                 loadResults(data.pastResults);
                 loadClubInfo(data.clubInfo);
+                loadGallery(data.gallery);
                 updateFooter(data.clubInfo);
                 
             } catch (error) {
@@ -731,18 +1026,9 @@
                 <div class="info-card">
                     <h3>👥 Management</h3>
                     <div class="info-item">
-                        <span class="info-label">Team Chair Person:</span>
-                        <span class="info-value">${clubInfo.chairman}</span>
+                        <span class="info-label">Manager:</span>
+                        <span class="info-value">${clubInfo.manager}</span>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Team Manager:</span>
-                        <span class="info-value">${clubInfo.teammanager}</span>
-                    </div>
-                         <div class="info-item">
-                        <span class="info-label">Team Coach:</span>
-                        <span class="info-value">${clubInfo.teamcoach}</span>
-                    </div>
-                                                   
                     <div class="info-item">
                         <span class="info-label">Captain:</span>
                         <span class="info-value">${clubInfo.captain}</span>
@@ -775,6 +1061,3 @@
     </script>
 </body>
 </html>
-
-
-
