@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Tassia FC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: #0047AB;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        nav a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0047AB, #0056D2);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .page-hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 60px 20px;
+            background: #f5f5f5;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            height: 300px;
+            background: white;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,71,171,0.9), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .gallery-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0 15px;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .lightbox-nav.prev {
+            left: 20px;
+        }
+
+        .lightbox-nav.next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.1em;
+        }
+        
+        footer {
+            background: #0047AB;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.5em;
+            }
+
+            .page-hero p {
+                font-size: 1.1em;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-nav {
+                padding: 10px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">⚽ TASSIA FC</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#fixtures">Fixtures</a></li>
+                        <li><a href="index.html#results">Results</a></li>
+                        <li><a href="gallery.html" class="active">Gallery</a></li>
+                        <li><a href="index.html#support">Support</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <div class="container">
+            <h1>📸 Photo Gallery</h1>
+            <p>Moments from our journey, matches, and team events</p>
+        </div>
+    </div>
+
+    <div class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid" id="gallery-container">
+                <div class="loading">Loading gallery...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <button class="lightbox-nav prev" onclick="lightboxNav(-1)">❮</button>
+            <img id="lightbox-img" src="" alt="Gallery Image">
+            <button class="lightbox-nav next" onclick="lightboxNav(1)">❯</button>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <h3 style="margin-bottom: 20px; font-size: 1.8em;">⚽ TASSIA FC</h3>
+            <p id="footer-copyright"></p>
+            <div class="contact-info" id="footer-contact">
+                <p>📞 +254 712 345 678 | ✉️ info@tassiafc.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery Images - ADD YOUR PHOTOS HERE!
+        const galleryImages = [
+            'gallery1.jpg',
+            'gallery2.jpg',
+            'gallery3.jpg',
+            'gallery4.jpg',
+            'gallery5.jpg',
+            'gallery6.jpg',
+            'gallery7.jpg',
+            'gallery8.jpg',
+            'gallery9.jpg',
+            'gallery10.jpg',
+            'gallery11.jpg',
+            'gallery12.jpg',
+            'gallery13.jpg',
+            'gallery14.jpg',
+            'gallery15.jpg',
+            'gallery16.jpg',
+            'gallery17.jpg',
+            'gallery18.jpg',
+            'gallery19.jpg',
+            'gallery20.jpg',
+            'gallery21.jpg',
+            'gallery22.jpg',
+            'gallery23.jpg',
+            'gallery24.jpg',
+            'gallery25.jpg',
+            'gallery26.jpg',
+            'gallery27.jpg',
+            'gallery28.jpg',
+            'gallery29.jpg',
+            'gallery30.jpg',
+        ].map((filename, index) => ({
+            url: `images/${filename}`,
+            title: `Tassia FC Photo ${index + 1}`,
+            description: ''
+        }));
+
+        let currentLightboxIndex = 0;
+
+        function loadGallery() {
+            const container = document.getElementById('gallery-container');
+            
+            container.innerHTML = galleryImages.map((item, index) => `
+                <div class="gallery-item" onclick="openLightbox(${index})">
+                    <img src="${item.url}" alt="${item.title}" onerror="this.parentElement.style.display='none'">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">${item.title}</div>
+                        <div class="gallery-description">${item.description || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightbox-img').src = galleryImages[index].url;
+            updateCounter();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function lightboxNav(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex >= galleryImages.length) {
+                currentLightboxIndex = 0;
+            } else if (currentLightboxIndex < 0) {
+                currentLightboxIndex = galleryImages.length - 1;
+            }
+            document.getElementById('lightbox-img').src = galleryImages[currentLightboxIndex].url;
+            updateCounter();
+        }
+
+        function updateCounter() {
+            document.getElementById('lightbox-counter').textContent = 
+                `${currentLightboxIndex + 1} / ${galleryImages.length}`;
+        }
+
+        // Close lightbox on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+            if (e.key === 'ArrowRight') lightboxNav(1);
+        });
+
+        // Update footer
+        const currentYear = new Date().getFullYear();
+        document.getElementById('footer-copyright').textContent = 
+            `© ${currentYear} Tassia FC. All rights reserved.`;
+
+        // Load gallery on page load
+        document.addEventListener('DOMContentLoaded', loadGallery);
+    </script>
+</body>
+</html>
