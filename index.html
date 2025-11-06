@@ -684,19 +684,25 @@
 
     <div class="hero-slider" id="home">
         <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200" alt="Football Team">
+            <img src="images/slide1.jpg" alt="Tassia FC Team" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
         </div>
         <div class="slide">
-            <img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1200" alt="Match Action">
+            <img src="images/slide2.jpg" alt="Match Action" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
         </div>
         <div class="slide">
-            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200" alt="Team Spirit">
+            <img src="images/slide3.jpg" alt="Team Spirit" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
         </div>
         <div class="slide">
-            <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=1200" alt="Football Stadium">
+            <img src="images/slide4.jpg" alt="Tassia FC Squad" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
         </div>
         <div class="slide">
-            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200" alt="Team Celebration">
+            <img src="images/slide5.jpg" alt="Team Celebration" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+        </div>
+        <div class="slide">
+            <img src="images/slide6.jpg" alt="Team Celebration" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
+        </div>
+        <div class="slide">
+            <img src="images/slide7.jpg" alt="Team Celebration" onerror="this.src='https://via.placeholder.com/1200x600/0047AB/ffffff?text=Tassia+FC'">
         </div>
 
         <div class="hero-overlay">
@@ -715,6 +721,8 @@
             <span class="slider-dot" onclick="currentSlide(2)"></span>
             <span class="slider-dot" onclick="currentSlide(3)"></span>
             <span class="slider-dot" onclick="currentSlide(4)"></span>
+            <span class="slider-dot" onclick="currentSlide(5)"></span>
+            <span class="slider-dot" onclick="currentSlide(6)"></span>
         </div>
     </div>
 
@@ -1026,9 +1034,18 @@
                 <div class="info-card">
                     <h3>👥 Management</h3>
                     <div class="info-item">
-                        <span class="info-label">Manager:</span>
-                        <span class="info-value">${clubInfo.manager}</span>
+                        <span class="info-label">Team Chair Person:</span>
+                        <span class="info-value">${clubInfo.chairman}</span>
                     </div>
+                    <div class="info-item">
+                        <span class="info-label">Team Manager:</span>
+                        <span class="info-value">${clubInfo.teammanager}</span>
+                    </div>
+                         <div class="info-item">
+                        <span class="info-label">Team Coach:</span>
+                        <span class="info-value">${clubInfo.teamcoach}</span>
+                    </div>
+                                                   
                     <div class="info-item">
                         <span class="info-label">Captain:</span>
                         <span class="info-value">${clubInfo.captain}</span>
