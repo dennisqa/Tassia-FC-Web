@@ -672,7 +672,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#fixtures">Fixtures</a></li>
                         <li><a href="#results">Results</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#support">Support</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -794,6 +794,26 @@
             </div>
         </div>
     </div>
+
+    <div class="gallery-section section" id="gallery">
+        <div class="container">
+            <h2>📸 Photo Gallery</h2>
+            <div class="gallery-grid" id="gallery-container">
+                <div class="loading">Loading gallery...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <button class="lightbox-nav prev" onclick="lightboxNav(-1)">❮</button>
+            <img id="lightbox-img" src="" alt="Gallery Image">
+            <button class="lightbox-nav next" onclick="lightboxNav(1)">❯</button>
+        </div>
+    </div>
+
     <div class="section" id="about">
         <div class="container">
             <h2>Club Information</h2>
@@ -888,40 +908,18 @@
             if (!gallery || gallery.length === 0) {
                 // List all your image files here - just add the filenames!
                 const autoGallery = [
-    'gallery1.jpg',
-    'gallery2.jpg',
-    'gallery3.jpg',
-    'gallery4.jpg',
-    'gallery5.jpg',
-    'gallery6.jpg',
-    'gallery7.jpg',
-    'gallery8.jpg',
-    'gallery9.jpg',
-    'gallery10.jpg',
-    'gallery11.jpg',
-    'gallery12.jpg',
-    'gallery13.jpg',
-    'gallery14.jpg',
-    'gallery15.jpg',
-    'gallery16.jpg',
-    'gallery17.jpg',
-    'gallery18.jpg',
-    'gallery19.jpg',
-    'gallery20.jpg',
-    'gallery21.jpg',
-    'gallery22.jpg',
-    'gallery23.jpg',
-    'gallery24.jpg',
-    'gallery25.jpg',
-    'gallery26.jpg',
-    'gallery27.jpg',
-    'gallery28.jpg',
-    'gallery29.jpg',
-    'gallery30.jpg',
-    'gallery31.jpg',
-    'gallery32.jpg',
-    'gallery33.jpg',                
-].map((filename, index) => ({
+                    'gallery1.jpg',
+                    'gallery2.jpg',
+                    'gallery3.jpg',
+                    'gallery4.jpg',
+                    'gallery5.jpg',
+                    'gallery6.jpg',
+                    'gallery7.jpg',
+                    'gallery8.jpg',
+                    'gallery9.jpg',
+                    'gallery10.jpg',
+                    // Add more filenames as needed
+                ].map((filename, index) => ({
                     url: `images/${filename}`,
                     title: `Tassia FC Photo ${index + 1}`,
                     description: ''
@@ -981,7 +979,7 @@
         function loadFixtures(fixtures) {
             const container = document.getElementById('fixtures-container');
             
-            if (fixtures.length === 0) {
+            if (!fixtures || fixtures.length === 0) {
                 container.innerHTML = '<div class="no-data">No upcoming fixtures at the moment. Check back soon!</div>';
                 return;
             }
@@ -1008,7 +1006,7 @@
         function loadResults(results) {
             const container = document.getElementById('results-container');
             
-            if (results.length === 0) {
+            if (!results || results.length === 0) {
                 container.innerHTML = '<div class="no-data">No recent results available.</div>';
                 return;
             }
@@ -1099,6 +1097,3 @@
     </script>
 </body>
 </html>
-
-
-
